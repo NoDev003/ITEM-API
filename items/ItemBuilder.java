@@ -10,14 +10,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ItemBuilder implements ItemSpecification<ItemBuilder>{
+public class ItemBuilder implements ItemSpecification<ItemBuilder> {
 
-
-    protected ItemMeta itemMeta;
-    protected ItemStack itemStack;
-
-    protected Material material;
-    protected int quantity, data;
+    private ItemMeta itemMeta;
+    private ItemStack itemStack;
+    
+    private Material material;
+    private int quantity, data;
 
     public ItemBuilder(Material material) {
         this.material = material;
@@ -48,15 +47,15 @@ public class ItemBuilder implements ItemSpecification<ItemBuilder>{
 
     @Override
     public ItemBuilder setLore(List<String> lore) {
-        itemMeta.setLore(lore.stream().map(x -> x.replace("&", "§")).collect(Collectors.toList()));
+        itemMeta.setLore(Lists.transform(lore, x -> x.replace("&", "§")));
         return this;
     }
 
     @Override
     public ItemBuilder setLore(String... lore) {
         List<String> list = Arrays.asList(lore);
-        itemMeta.setLore(list.stream().map(x -> x.replace("&", "§")).collect(Collectors.toList()));
-        return null;
+        itemMeta.setLore(Lists.transform(list, x -> x.replace("&", "§")));
+        return this;
     }
 
     @Override
@@ -90,4 +89,5 @@ public class ItemBuilder implements ItemSpecification<ItemBuilder>{
         itemStack.setItemMeta(itemMeta);
         return itemStack;
     }
+    
 }
